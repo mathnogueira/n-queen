@@ -9,7 +9,8 @@ class Task {
 
 	public:
 		Task();
-		virtual void execute(Context *context) = 0;
+		virtual void execute(Context *context);
+		uint test();
 };
 
 }

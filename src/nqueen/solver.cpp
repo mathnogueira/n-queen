@@ -8,8 +8,10 @@ Solver::Solver(uint nRainhas, uint rainhasThread) {
 	uint numeroThreads = ceil((double) nRainhas/rainhasThread);
 	DEBUG("Criando aplicação com " << numeroThreads << " threads");
 	criarTabuleiro(nRainhas);
+	TaskBuilder *preencherTabuleiro = new TaskBuilder();
 	// Cria os workers para processar os dados em paralelo.
 	workerPool.setNumberWorkers(numeroThreads);
+	workerPool.addTask(preencherTabuleiro);
 	workerPool.start(tabuleiro);
 }
 

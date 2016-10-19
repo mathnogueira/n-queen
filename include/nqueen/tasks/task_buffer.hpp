@@ -1,6 +1,7 @@
 #pragma once
 
-#include <nqueen/parallel/task.hpp>
+#include <nqueen/tasks/task_builder.hpp>
+#include <nqueen/tasks/task.hpp>
 #include <nqueen/core.hpp>
 
 namespace NQueen {
@@ -10,13 +11,13 @@ class TaskBuffer {
 	public:
 		TaskBuffer();
 		~TaskBuffer();
-		void add(Task &task);
+		void add(TaskBuilder *builder);
 		Task* get();
 		bool empty();
 
 
 	private:
-		Queue<Task*> *taskQueue;
+		TaskBuilder *builder;
 
 };
 

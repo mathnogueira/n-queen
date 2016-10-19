@@ -54,7 +54,7 @@ if (debug)
 	# TODO: Consertar falha com CMP0037 no target do cmake
 	# set (COVERAGE_TEST ON)
 	# Define as flags de debug do compilador
-	set (CMAKE_CXX_FLAGS "-g -O0 -Wall")
+	set (PROJECT_FLAGS "-ggdb -O0 -Wall")
 endif()
 
 # Ativa a construção dos testes de unidade do programa
@@ -86,6 +86,8 @@ project (${PROJECT_NAME})
 
 # Define o tipo de build
 set(CMAKE_BUILD_TYPE ${PROJECT_BUILD_TYPE})
+
+set (CMAKE_CXX_FLAGS ${PROJECT_FLAGS})
 
 # Inclui a pasta "include" como local para se procurar arquivos de cabeçalho
 # do programa.

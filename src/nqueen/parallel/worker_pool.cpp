@@ -5,20 +5,22 @@
 using namespace NQueen;
 
 WorkerPool::WorkerPool() {
-	buffer = new TaskBuffer;
+	buffer = new TaskBuffer();
+	DEBUG("Criando pool de threads");
 }
 
 WorkerPool::~WorkerPool() {
 	delete context;
 	delete buffer;
+	DEBUG("Destruindo pool de threads");
 }
 
 void WorkerPool::setNumberWorkers(uint number) {
 	this->numberWorkers = number;
 }
 
-void WorkerPool::addTask(Task &task) {
-	
+void WorkerPool::addTask(TaskBuilder *builder) {
+	buffer->add(builder);
 }
 
 void WorkerPool::start(void *data) {

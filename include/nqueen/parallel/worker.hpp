@@ -1,6 +1,6 @@
 #pragma once
 
-#include <nqueen/parallel/task_buffer.hpp>
+#include <nqueen/tasks/task_buffer.hpp>
 #include <nqueen/core.hpp>
 #include <pthread.h>
 

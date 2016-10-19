@@ -1,9 +1,10 @@
 #pragma once
 
-#include <nqueen/parallel/task_buffer.hpp>
+#include <nqueen/tasks/task_builder.hpp>
+#include <nqueen/tasks/task_buffer.hpp>
 #include <nqueen/parallel/context.hpp>
-#include <nqueen/parallel/task.hpp>
 #include <nqueen/parallel/worker.hpp>
+#include <nqueen/tasks/task.hpp>
 #include <nqueen/core.hpp>
 #include <vector>
 
@@ -18,7 +19,7 @@ class WorkerPool {
 		WorkerPool();
 		~WorkerPool();
 		void setNumberWorkers(uint number);
-		void addTask(Task &task);
+		void addTask(TaskBuilder *builder);
 		void start(void *data);
 	
 	private:

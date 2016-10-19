@@ -1,7 +1,6 @@
 #pragma once
 
 #include <nqueen/core.hpp>
-#include <pthread.h>
 
 namespace NQueen {
 
@@ -11,6 +10,8 @@ class Queue {
 	public:
 		Queue() {
 			head = NULL;
+			size = 0;
+			initialized = true;
 		}
 
 		~Queue() {
@@ -22,7 +23,6 @@ class Queue {
 			Node *node = new Node;
 			node->content = element;
 			node->next = NULL;
-			pthread_mutex_lock(&queue_mutex);
 			if (head == NULL) {
 				head = node;
 			} else {
@@ -30,25 +30,23 @@ class Queue {
 				head->next = node;	
 			}
 			++size;
-			pthread_mutex_unlock(&queue_mutex);
 		}
 
 		T pop() {
-			pthread_mutex_lock(&queue_mutex);
-			T element = head->content;
+			T element;
+			if (!initialized)
+				return element;
+			element = head->content;
 			Node *oldHead = head;
 			head = head->next;
 			delete oldHead;
 			--size;
-			pthread_mutex_unlock(&queue_mutex);
 			return element;
 		}
 
 		bool empty() {
-			pthread_mutex_lock(&queue_mutex);
 			uint size = this->size;
-			pthread_mutex_unlock(&queue_mutex);
-			return size == 0;
+			return initialized && size == 0;
 		}
 
 
@@ -58,9 +56,9 @@ class Queue {
 			T content;
 			struct Node *next;
 		};
-		Node *head;
-		uint size;
-		pthread_mutex_t queue_mutex;
+		Node *head = NULL;
+		uint size = 0;
+		bool initialized = false;
 
 };
 
